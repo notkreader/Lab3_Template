@@ -117,6 +117,8 @@ public class CourseGrades {
 
     public double computeStatistic() {
         List<StudentGrade> stList = new ArrayList<>(results.values());
+        if(stList.isEmpty())
+            return -1;
         return stats.compute(stList);
     }
 

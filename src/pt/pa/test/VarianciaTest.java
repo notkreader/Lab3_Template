@@ -1,34 +1,17 @@
-package pt.pa;
+package pt.pa.test;
 
-import pt.pa.model.*;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import pt.pa.model.CourseGrades;
+import pt.pa.model.StudentGrade;
+import pt.pa.model.Variancia;
 
-import java.util.SortedMap;
+public class VarianciaTest {
+    private CourseGrades instance;
 
-public class Main {
-
-    public static void main(String[] args) {
-
-        CourseGrades grades = generate_example();
-
-        /*grades.changeSorting(new NomeSort());
-        System.out.println(grades.toString());
-
-        grades.changeSorting(new NumeroSort());
-        System.out.println(grades.toString());
-
-        grades.changeSorting(new NotaSort());
-        System.out.println(grades.toString());*/
-
-        //grades.changeSorting(new NotaSort());
-        //System.out.println(grades.toString());
-
-        grades.changeStatistic(new Variancia());
-        System.out.println(grades.computeStatistic());
-
-    }
-
-    private static CourseGrades generate_example() {
-        CourseGrades instance = new CourseGrades("Programação Avançada");
+    @BeforeEach
+    void setUp() {
+        instance = new CourseGrades("Programação Avançada");
 
         instance.add( new StudentGrade("996693","Jada Head",17));
         instance.add( new StudentGrade("372930","Tad Mccall",18));
@@ -130,7 +113,20 @@ public class Main {
         instance.add( new StudentGrade("829747","Ralph Long",16));
         instance.add( new StudentGrade("251431","Anastasia Mendez",10));
         instance.add( new StudentGrade("271691","Brandon Hartman",13));
-
-        return instance;
     }
+
+    @Test
+    void varianciaTest() {
+        instance.changeStatistic(new Variancia());
+
+        assertEquals(17.4504, instance.computeStatistic());
+    }
+
+    @Test
+    void emptyVarianciaTest() {
+        instance.clear();
+
+        assertEquals(-1, instance.computeStatistic());
+    }
+
 }
