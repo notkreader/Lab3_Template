@@ -5,6 +5,8 @@ import java.util.*;
 public class CourseGrades {
     private final String course;
     private final Map<String, StudentGrade> results;
+    private Statistic stats;
+    private GradesSorting sorts;
 
     /**
      * Instanciates a new course with empty list of grades.
@@ -85,7 +87,7 @@ public class CourseGrades {
      */
     public Collection<StudentGrade> list() {
         List<StudentGrade> list = new ArrayList<>( results.values() );
-        list.sort((g1, g2) -> g1.getName().compareToIgnoreCase(g2.getName()));
+        sorts.sort(list);
         return list;
     }
 
@@ -107,4 +109,33 @@ public class CourseGrades {
 
         return sb.toString();
     }
+
+    public void changeStatistic(Statistic s) {
+        if(s != null)
+            stats = s;
+    }
+
+    public double computeStatistic() {
+        List<StudentGrade> stList = new ArrayList<>(results.values());
+        return stats.compute(stList);
+    }
+
+    public void changeSorting(GradesSorting gs) {
+        if(gs != null)
+            sorts = gs;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

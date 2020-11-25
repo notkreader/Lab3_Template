@@ -1,7 +1,8 @@
 package pt.pa;
 
-import pt.pa.model.CourseGrades;
-import pt.pa.model.StudentGrade;
+import pt.pa.model.*;
+
+import java.util.SortedMap;
 
 public class Main {
 
@@ -9,7 +10,14 @@ public class Main {
 
         CourseGrades grades = generate_example();
 
-        System.out.println(grades);
+        grades.changeSorting(new NomeSort());
+        System.out.println(grades.toString());
+
+        grades.changeSorting(new NumeroSort());
+        System.out.println(grades.toString());
+
+        grades.changeSorting(new NotaSort());
+        System.out.println(grades.toString());
 
     }
 
